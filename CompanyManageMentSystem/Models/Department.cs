@@ -4,6 +4,7 @@ namespace CompanyManageMentSystem.Models
 {
     public class Department
     {
+        [Key]
         public int Id { get; set; }
         [Required]
         [MaxLength(100)]

@@ -113,6 +113,26 @@ namespace CompanyManageMentSystem.Migrations
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.InsertData(
+                table: "Departments",
+                columns: new[] { "Id", "Location", "Name" },
+                values: new object[] { 1, "lllllll", "Cs" });
+
+            migrationBuilder.InsertData(
+                table: "Employees",
+                columns: new[] { "Id", "DepartmentId", "Email", "FullName", "HireDate", "Salary" },
+                values: new object[] { 1, 1, "toka@gmail.com", "Toka Reda", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified).AddTicks(2006), 1000m });
+
+            migrationBuilder.InsertData(
+                table: "Projects",
+                columns: new[] { "Id", "Budget", "DepartmentId", "Description", "Name", "StartDate" },
+                values: new object[] { 1, 1000.0, 1, "Request Management System", "RMS", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified).AddTicks(2006) });
+
+            migrationBuilder.InsertData(
+                table: "EmployeeProjects",
+                columns: new[] { "Id", "AssignedDate", "AssignedRole", "EmployeeId", "ProjectId" },
+                values: new object[] { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified).AddTicks(2006), "company", 1, 1 });
+
             migrationBuilder.CreateIndex(
                 name: "IX_EmployeeProjects_EmployeeId",
                 table: "EmployeeProjects",

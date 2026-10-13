@@ -3,6 +3,7 @@ using CompanyManageMentSystem.DTOs.Department;
 using CompanyManageMentSystem.DTOs.EmployeeProject;
 using CompanyManageMentSystem.Models;
 using CompanyManageMentSystem.UnitOfWork;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,6 +23,7 @@ namespace CompanyManageMentSystem.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult Add(CreateEmployeeProjectDTO dto)
         {
 

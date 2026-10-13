@@ -3,6 +3,7 @@ using CompanyManageMentSystem.DTOs.Department;
 using CompanyManageMentSystem.DTOs.Employee;
 using CompanyManageMentSystem.Models;
 using CompanyManageMentSystem.UnitOfWork;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,6 +23,7 @@ namespace CompanyManageMentSystem.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult Add(CreateEmployeeDTO dto)
         {
 
@@ -57,6 +59,7 @@ namespace CompanyManageMentSystem.Controllers
 
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(int id, CreateEmployeeDTO dto)
         {
             var dep = await _unit.Employee.GetById(id);
@@ -71,6 +74,7 @@ namespace CompanyManageMentSystem.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var dep = await _unit.Employee.GetById(id);

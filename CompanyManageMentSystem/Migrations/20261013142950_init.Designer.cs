@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CompanyManageMentSystem.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20261013084310_init")]
+    [Migration("20261013142950_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -46,6 +46,14 @@ namespace CompanyManageMentSystem.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Departments");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Location = "lllllll",
+                            Name = "Cs"
+                        });
                 });
 
             modelBuilder.Entity("CompanyManageMentSystem.Models.Employee", b =>
@@ -79,6 +87,17 @@ namespace CompanyManageMentSystem.Migrations
                     b.HasIndex("DepartmentId");
 
                     b.ToTable("Employees");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DepartmentId = 1,
+                            Email = "toka@gmail.com",
+                            FullName = "Toka Reda",
+                            HireDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified).AddTicks(2006),
+                            Salary = 1000m
+                        });
                 });
 
             modelBuilder.Entity("CompanyManageMentSystem.Models.EmployeeProject", b =>
@@ -111,6 +130,16 @@ namespace CompanyManageMentSystem.Migrations
                         .IsUnique();
 
                     b.ToTable("EmployeeProjects");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AssignedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified).AddTicks(2006),
+                            AssignedRole = "company",
+                            EmployeeId = 1,
+                            ProjectId = 1
+                        });
                 });
 
             modelBuilder.Entity("CompanyManageMentSystem.Models.Project", b =>
@@ -144,6 +173,17 @@ namespace CompanyManageMentSystem.Migrations
                     b.HasIndex("DepartmentId");
 
                     b.ToTable("Projects");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Budget = 1000.0,
+                            DepartmentId = 1,
+                            Description = "Request Management System",
+                            Name = "RMS",
+                            StartDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified).AddTicks(2006)
+                        });
                 });
 
             modelBuilder.Entity("CompanyManageMentSystem.Models.User", b =>

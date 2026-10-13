@@ -23,11 +23,12 @@ namespace CompanyManageMentSystem.Repo.Implementation
         public async Task<string> Login(LoginDTO dto)
         {
             var u= await _context.Users.FirstOrDefaultAsync(x=>x.Email == dto.Email);
+
             if (u == null) { return null; }
 
             if (u.Password == dto.Password)
             {
-
+                return GenerateToken(u);
             }
 
             return null;
@@ -58,7 +59,9 @@ namespace CompanyManageMentSystem.Repo.Implementation
             var claim = new List<Claim>
             {
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Name, user.Name)
+                new Claim(ClaimTypes.Name, user.Name),
+                new Claim(ClaimTypes.Role, user.Role)
+            
             };
 
             var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_conf["JWT:Key"]));
@@ -73,11 +76,10 @@ namespace CompanyManageMentSystem.Repo.Implementation
                 signingCredentials: sinig,
                 expires: DateTime.UtcNow.AddHours(Convert.ToDouble(_conf["JWT:ExpirationInHours"]))
 
-
-
                 );
            
-            
+            var token =new JwtSecurityTokenHandler().WriteToken(tokenObj);
+            return token;
 
 
         }

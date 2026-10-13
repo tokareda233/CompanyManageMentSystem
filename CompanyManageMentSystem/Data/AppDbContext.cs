@@ -44,6 +44,52 @@ namespace CompanyManageMentSystem.Data
             modelBuilder.Entity<EmployeeProject>()
                 .HasIndex(x => new { x.ProjectId, x.EmployeeId }).IsUnique();
 
+            modelBuilder.Entity<Department>()
+                .HasData(
+                new Department
+                {
+                    Id = 1,
+                    Name="Cs",
+                    Location="lllllll"
+                });
+
+            modelBuilder.Entity<Employee>()
+                .HasData(
+                new Employee
+                {
+                    Id = 1,
+                    FullName="Toka Reda",
+                    Email="toka@gmail.com",
+                    Salary=1000,
+                    HireDate=new DateTime(2026 - 10 - 10),
+                    DepartmentId=1
+                    
+                });
+
+
+            modelBuilder.Entity<Project>()
+                .HasData(
+                new Project
+                { 
+                    Id = 1,
+                    Name="RMS",
+                    Description="Request Management System",
+                    StartDate=new DateTime(2026 - 10 - 10),
+                    Budget=1000,
+                    DepartmentId=1
+                });
+
+            modelBuilder.Entity<EmployeeProject>()
+                .HasData(
+                new EmployeeProject
+                {
+                    Id = 1,
+                    EmployeeId=1,
+                    ProjectId=1,
+                    AssignedDate=new DateTime(2026 - 10 - 10),
+                    AssignedRole="company"
+                });
+
         }
 
     }

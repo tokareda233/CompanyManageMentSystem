@@ -2,6 +2,7 @@
 using CompanyManageMentSystem.DTOs.Department;
 using CompanyManageMentSystem.Models;
 using CompanyManageMentSystem.UnitOfWork;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +22,7 @@ namespace CompanyManageMentSystem.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles ="Admin")]
         public  IActionResult Add(CreateDepartmentDTO dto) {
 
             if (dto == null||!ModelState.IsValid) { return BadRequest(); }
@@ -55,6 +57,7 @@ namespace CompanyManageMentSystem.Controllers
 
 
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(int id,CreateDepartmentDTO dto)
         {
             var dep = await _unit.Departments.GetById(id);
@@ -69,6 +72,7 @@ namespace CompanyManageMentSystem.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             var dep = await _unit.Departments.GetById(id);

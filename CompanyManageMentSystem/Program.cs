@@ -3,7 +3,10 @@ using CompanyManageMentSystem.Data;
 using CompanyManageMentSystem.Repo.Implementation;
 using CompanyManageMentSystem.Repo.Interface;
 using CompanyManageMentSystem.UnitOfWork;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace CompanyManageMentSystem
 {
@@ -20,6 +23,24 @@ namespace CompanyManageMentSystem
             builder.Services.AddScoped<IEmployeeProjectRepo,EmployeeProjectRepo>();
             builder.Services.AddScoped<IAuthRepo,AuthRepo>();
 
+
+            builder.Services.AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(opt =>
+            {
+                opt.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuer= true,
+                    ValidateAudience= true,
+                    ValidateIssuerSigningKey= true,
+                    ValidIssuer = builder.Configuration["JWT:Issuer"],
+                    ValidAudience = builder.Configuration["JWT:Audiance"],
+                    IssuerSigningKey=new SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["JWT:Key"])),
+                };
+
+            });
             // Add services to the container.
 
             builder.Services.AddControllers();
@@ -37,6 +58,7 @@ namespace CompanyManageMentSystem
             }
 
             app.UseHttpsRedirection();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 
